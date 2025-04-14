@@ -7,9 +7,13 @@ const CartRouter = express.Router();
 const protectedRouteMiddleware = require("../middleware/protectedRoute");
 
 /******  Cart Controller  ******/
-const { addProductToCartHandler } = require("../controllers/CartController");
+const {
+  addProductToCartHandler,
+  getCartDetailsHandler,
+} = require("../controllers/CartController");
 
 /******  Cart Routes  ******/
 CartRouter.post("/add", protectedRouteMiddleware, addProductToCartHandler);
+CartRouter.get("/:userId", protectedRouteMiddleware, getCartDetailsHandler);
 
 module.exports = CartRouter;

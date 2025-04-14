@@ -33,6 +33,7 @@ const ProductRouter = require("./routes/ProductRouter");
 const ReviewRouter = require("./routes/ReviewRouter.js");
 const UserRouter = require("./routes/UserRouter");
 const CartRouter = require("./routes/CartRouter");
+const OrderRouter = require("./routes/OrderRouter");
 
 /******  Route  ******/
 // Prediction Route
@@ -47,6 +48,8 @@ app.use("/api/review", ReviewRouter);
 app.use("/api/user", UserRouter);
 // Cart Route
 app.use("/api/cart", CartRouter);
+// Order Route
+app.use("/api/order", OrderRouter);
 
 app.use(function (req, res) {
   res.status(404).json({

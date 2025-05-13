@@ -9,10 +9,10 @@ const protectedRouteMiddleware = require("../middleware/protectedRoute");
 /******  Order Controller  ******/
 const {
   createOrderController,
-  getOrderController,
+  getOrdersByUserId,
 } = require("../controllers/OrderController");
 
 OrderRouter.post("/", protectedRouteMiddleware, createOrderController);
-OrderRouter.get("/", protectedRouteMiddleware, getOrderController);
+OrderRouter.get("/:userId", protectedRouteMiddleware, getOrdersByUserId);
 
 module.exports = OrderRouter;

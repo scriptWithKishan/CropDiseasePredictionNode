@@ -1,7 +1,7 @@
 const Cart = require("../models/CartModel");
 const Product = require("../models/ProductModel");
 const Order = require("../models/OrderModel");
-const { getAllFactory } = require("../utility/crudFactory");
+const { getAllFactory, getByIdFactory } = require("../utility/crudFactory");
 
 const createOrderController = async (req, res) => {
   try {
@@ -111,9 +111,30 @@ const createOrderController = async (req, res) => {
   }
 };
 
-const getOrderController = getAllFactory(Order);
+const getOrdersByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    const orders = await Order.find({ user: userId }).populate("items.product");
+
+    if (!orders.length) {
+      return res
+        .status(404)
+        .json({ message: "No orders found for this user." });
+    }
+
+    return res.status(200).json({ orders });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    return res.status(500).json({ message: "Server error. Try again later." });
+  }
+};
 
 module.exports = {
   createOrderController,
-  getOrderController,
+  getOrdersByUserId,
 };
